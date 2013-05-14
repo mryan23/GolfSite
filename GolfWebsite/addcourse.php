@@ -23,8 +23,9 @@
             mapOptions);
         google.maps.event.addListener(map, 'click', function(event) {
             placeMarker(event.latLng);
-          });
+          }); 
       }
+      //COMMENT
       
 
 
