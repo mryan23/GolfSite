@@ -37,7 +37,16 @@ function verifyData()
 		return;
 		}
 		
-	window.location="addcourse.php";
+	var address=street;
+	if(city!="")
+		address+=" "+city;
+	if(city!=""&&state!="")
+		address+=",";
+	if(state!="")
+		address+=" "+state;
+	address+=" "+zip;
+	window.location="addcourse.php?name="+name+"&holes="+numberOfHoles+
+			"&phone="+phone+"&add="+address;
 }
 </script>
 </head>
