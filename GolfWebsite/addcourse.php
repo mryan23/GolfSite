@@ -13,6 +13,7 @@
     <script type="text/javascript">
 	var iconBase="http://www.google.com/mapfiles/kml/paddle/";
     var map;
+    var test;
       function initialize() {
         var mapOptions = {
           center: new google.maps.LatLng(0,0),
