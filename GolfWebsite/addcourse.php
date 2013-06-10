@@ -12,6 +12,8 @@
     <script type="text/javascript"
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBbNAnyNOk7z8JdliqIe0rdUmuaLdE-c1g&sensor=true">
     </script>
+    <script src="Course.js"></script>
+    <script src="MappingStateMachine.js"></script>
     <script type="text/javascript">
 	var iconBase="http://www.google.com/mapfiles/kml/paddle/";
     var map;
@@ -25,26 +27,27 @@
         map = new google.maps.Map(document.getElementById("map-canvas"),
             mapOptions);
 
+        
 
+		var name = getParams("name");
+		document.getElementById("title").innerHTML=name;
+		var phone = getParams("phone");
         var address = getParams("add");
+        var numHoles = getParams("holes");
         geocoder=new google.maps.Geocoder();
         geocoder.geocode( { 'address': address}, function(results, status) {
             if (status == google.maps.GeocoderStatus.OK) {
               map.setCenter(results[0].geometry.location);
               map.setZoom(18);
-              var marker = new google.maps.Marker({
-      			position: map.getCenter(),
-      			draggable: true,
-      			map: map,
-      			icon: 'images/flag.png'
-              });
-              alert(JSON.stringify(marker));
+              //alert("Calling init");
+              initStateMachine(map, new Course(name, address, phone, numHoles));
             } else {
               alert('Geocode was not successful for the following reason: ' + status);
             }
           });
 
-        
+      //START STATE MACHINE
+      
         
       }
       //COMMENT
@@ -89,6 +92,7 @@
   	<div id="maindiv">
   		<div id="coursecreator">
   			<h4 id="instructions"></h4>
+  			<button id="nextButton" onclick="updateState()">Next</button>
   		</div>
   		<div id="map-canvas"></div>
     </div>
