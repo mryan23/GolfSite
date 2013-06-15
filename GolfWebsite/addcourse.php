@@ -12,8 +12,10 @@
     <script type="text/javascript"
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBbNAnyNOk7z8JdliqIe0rdUmuaLdE-c1g&sensor=true">
     </script>
+    <script src="ObstacleTable"></script>
     <script src="Course.js"></script>
     <script src="MappingStateMachine.js"></script>
+    
     <script type="text/javascript">
 	var iconBase="http://www.google.com/mapfiles/kml/paddle/";
     var map;
@@ -90,8 +92,10 @@
   <body>
   	<div><h1 id="title">TITLE</h1></div>
   	<div id="maindiv">
-  		<div id="coursecreator">
-  			<h4 id="instructions"></h4>
+  		<div id="coursecreator" style="overflow-y: auto">
+  			<p id="instructions"></p>
+  			<div id="obstacleTableDiv"></div>
+  			<div id="addToTableDiv"></div>
   			<button id="nextButton" onclick="updateState()">Next</button>
   		</div>
   		<div id="map-canvas"></div>

@@ -31,6 +31,10 @@ function Hole(num)
 	this.number = num;
 }
 Hole.prototype = {
+		setTee: function(loc)
+		{
+			this.tee=loc;
+		},
 		addGreen: function(f,m,b)
 		{
 			this.green = new Green(f,m,b);
