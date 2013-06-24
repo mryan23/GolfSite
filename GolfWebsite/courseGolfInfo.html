@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Course Information</title>
+		<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+		<script src="http://code.jquery.com/jquery.js"></script>
+		<script src="bootstrap/js/bootstrap.min.js"></script>
+		<script src="FormHelpers/js/bootstrap-formhelpers-phone.js"></script>
+		<script src="teeTable.js"></script>
+		<script>
+			var teeTable;
+			function addTable() {
+				var container = document.getElementById("teeContainer");
+				teeTable = new TeeTable(container);
+			}
+			function addRow(){
+				teeTable.addRow();
+			}
+			function mapCourse(){
+				var tees = teeTable.getTees();
+				sessionStorage.setItem("tees", tees);
+				var numHoles = document.getElementById("inputHoles").value;
+				sessionStorage.setItem("numHoles",numHoles);
+				window.location = "index.html";
+			}
+		</script>
+	</head>
+	<body onload="addTable()">
+		<h1>Create Course</h1>
+
+		<form class="form-horizontal" action="courseGolfInfo.html">
+			<div class="control-group">
+				<label class="control-label" for="inputHoles">Number of Holes</label>
+				<div class="controls">
+					<select id="inputHoles">
+						<option value="" selected="selected"></option>
+						<option value="18">18</option>
+						<option value="9">9</option>
+					</select>
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="inputTees" required>Tees</label>
+				<div class="controls" style="width:50%; text-align: center">
+					<div id="teeContainer"></div>
+					<button class="btn" onclick="addRow();" type="button">
+						Add Tee
+					</button>
+				</div>
+			</div>-
+
+			<div class="control-group">
+				<div class="controls">
+					<button type="button" class="btn" onclick="mapCourse()">
+						Next
+					</button>
+				</div>
+			</div>
+		</form>
+	</body>
+</html>
