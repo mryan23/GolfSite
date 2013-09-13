@@ -94,6 +94,10 @@
             android:label="@string/title_activity_score_card"
             android:screenOrientation="landscape" >
         </activity>
+        <activity
+            android:name="com.example.golfapp.MakeRoundActivity"
+            android:label="@string/title_activity_make_round" >
+        </activity>
     </application>
 
 </manifest>

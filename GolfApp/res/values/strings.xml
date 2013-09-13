@@ -122,5 +122,6 @@
     <string name="title_activity_course_stats">CourseStatsActivity</string>
     <string name="title_activity_round">RoundActivity</string>
     <string name="title_activity_score_card">ScoreCardActivity</string>
+    <string name="title_activity_make_round">MakeRoundActivity</string>
 
 </resources>

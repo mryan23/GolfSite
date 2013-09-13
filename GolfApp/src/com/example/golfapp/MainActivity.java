@@ -39,8 +39,8 @@ public class MainActivity extends Activity {
 		//File clubsFile = new File(getFilesDir(),"clubs.xml");
 		//clubsFile.delete();
 		
-		//File testFile = new File(getFilesDir(),"courses/vtCourse.xml");
-		//testFile.mkdirs();
+		File testFile = new File(getFilesDir(),"courses/vtCourse.xml");
+		testFile.mkdirs();
 		DownloadFileFromURL downloader = new DownloadFileFromURL(new File(getFilesDir(),"courses/vtCourse.xml").getAbsolutePath());
 		downloader.execute("http://www.oaktonchristmaslights.com/VT%20Golf%20Course.xml");
 		TextView debugView = (TextView)findViewById(R.id.mainDebugTextView);
@@ -127,7 +127,7 @@ public class MainActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				Intent i = new Intent(getApplicationContext(), NewRoundActivity.class);
+				Intent i = new Intent(getApplicationContext(), MakeRoundActivity.class);
 				startActivity(i);
 				
 			}
