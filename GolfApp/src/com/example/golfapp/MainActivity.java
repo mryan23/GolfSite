@@ -39,7 +39,7 @@ public class MainActivity extends Activity {
 		//File clubsFile = new File(getFilesDir(),"clubs.xml");
 		//clubsFile.delete();
 		
-		File testFile = new File(getFilesDir(),"courses/vtCourse.xml");
+		File testFile = new File(getFilesDir(),"courses/");
 		testFile.mkdirs();
 		DownloadFileFromURL downloader = new DownloadFileFromURL(new File(getFilesDir(),"courses/vtCourse.xml").getAbsolutePath());
 		downloader.execute("http://www.oaktonchristmaslights.com/VT%20Golf%20Course.xml");

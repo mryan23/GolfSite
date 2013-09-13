@@ -3,6 +3,7 @@ package com.example.golfapp;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
@@ -255,7 +256,6 @@ public class ShortGameTrackerActivity extends Activity {
 			@Override
 			public void onClick(View arg0) {
 				Intent i = new Intent();
-				Bundle b= new Bundle();
 				
 				//Add ShortGameShot to bundle here
 				//Make ShortGameShot Parcelable
@@ -284,9 +284,12 @@ public class ShortGameTrackerActivity extends Activity {
 			@Override
 			public boolean onTouch(View arg0, MotionEvent arg1)
 			{
+				
 				int x = (int)arg1.getX();
 				int y = (int)arg1.getY();
-				missDirection = 3*(y/70) + (x/70) + 1;
+				missDirection = 3*(y/(targetViewer.getHeight()/3)) + (x/(targetViewer.getWidth()/3)) + 1;
+				Log.d("SIZE",targetViewer.getHeight()+","+targetViewer.getWidth());
+				Log.d("Coordinates","("+x+","+y+") "+missDirection+" "+ShortGameShot.missToString(missDirection));
 				directionTextView.setText(ShortGameShot.missToString(missDirection));
 				return false;
 			}

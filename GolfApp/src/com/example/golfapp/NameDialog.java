@@ -16,7 +16,7 @@ public class NameDialog extends DialogFragment {
 
 	int numPlayers;
 	Round round;
-	MakeRoundActivity parent;
+	Activity parent;
 	Dialog dialog;
 	String[] tees = new String[0];
 	public void setNumPlayers(int num) {
@@ -31,7 +31,7 @@ public class NameDialog extends DialogFragment {
 		round = r;
 	}
 
-	public void setParent(MakeRoundActivity par) {
+	public void setParent(Activity par) {
 		parent = par;
 	}
 

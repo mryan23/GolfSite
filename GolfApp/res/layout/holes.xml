@@ -44,7 +44,7 @@
     <RelativeLayout
         android:id="@+id/RelativeLayout1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dip"
         android:layout_weight="0.99"
         android:orientation="horizontal" >
 
@@ -115,76 +115,13 @@
             android:layout_marginRight="10dp"
             android:layout_weight="1" >
 
-            <EditText
-                android:id="@+id/scoreEditText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/scorePlusButton"
-                android:layout_alignParentRight="true"
-                android:layout_below="@+id/scorePlusButton"
-                android:inputType="number"
-                android:text="0" >
-
-            </EditText>
-
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/puttsTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_below="@+id/scoreMinusButton"
+                android:layout_below="@+id/scoreNumberPicker"
                 android:text="Putts"
-                android:textSize="24sp" />
-
-            <Button
-                android:id="@+id/scorePlusButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/greenFrontTextView"
-                android:layout_alignParentRight="true"
-                android:layout_below="@+id/greenFrontTextView"
-                android:text="+"
-                android:textSize="24sp" />
-
-            <Button
-                android:id="@+id/scoreMinusButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/scoreEditText"
-                android:layout_alignParentRight="true"
-                android:layout_below="@+id/scoreEditText"
-                android:text="-"
-                android:textSize="24sp" />
-
-            <Button
-                android:id="@+id/puttsPlusButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/textView3"
-                android:layout_alignParentRight="true"
-                android:layout_below="@+id/textView3"
-                android:text="+"
-                android:textSize="24sp" />
-
-            <EditText
-                android:id="@+id/puttsEditText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/puttsPlusButton"
-                android:layout_alignParentRight="true"
-                android:layout_below="@+id/puttsPlusButton"
-                android:ems="10"
-                android:inputType="number"
-                android:text="0" />
-
-            <Button
-                android:id="@+id/puttsMinusButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/puttsEditText"
-                android:layout_alignParentRight="true"
-                android:layout_below="@+id/puttsEditText"
-                android:text="-"
                 android:textSize="24sp" />
 
             <TextView
@@ -210,10 +147,24 @@
                 android:id="@+id/greenCheckBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                
                 android:layout_alignParentRight="true"
-                android:layout_below="@+id/puttsMinusButton"
+                android:layout_below="@+id/puttsNumberPicker"
                 android:text="Green" />
+
+            <NumberPicker
+                android:id="@+id/scoreNumberPicker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/greenFrontTextView"
+                android:orientation="vertical" />
+
+            <NumberPicker
+                android:id="@+id/puttsNumberPicker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/puttsTextView" />
 
         </RelativeLayout>
     </RelativeLayout>

@@ -17,14 +17,11 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnLongClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.ScrollView;
-import android.widget.TextView;
 
 import com.example.golfapp.model.Club;
 import com.example.golfapp.xml.ClubParser;
@@ -40,8 +37,6 @@ public class ClubsActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_clubs);
 
-		TextView debugTextView = (TextView) findViewById(R.id.debugClubTextView);
-		String result = "";
 		ClubParser parser = new ClubParser(new File(getFilesDir(), "clubs.xml"));
 		Club[] clubs = parser.getClubs();
 		context = this;

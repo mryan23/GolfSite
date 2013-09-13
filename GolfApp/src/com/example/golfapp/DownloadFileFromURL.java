@@ -1,7 +1,6 @@
 package com.example.golfapp;
 
 import java.io.BufferedInputStream;
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -9,7 +8,6 @@ import java.net.URL;
 import java.net.URLConnection;
 
 import android.os.AsyncTask;
-import android.os.Environment;
 import android.util.Log;
 
 class DownloadFileFromURL extends AsyncTask<String, String, String> {
@@ -96,7 +94,6 @@ class DownloadFileFromURL extends AsyncTask<String, String, String> {
  
         // Displaying downloaded image into image view
         // Reading image path from sdcard
-        String imagePath = Environment.getExternalStorageDirectory().toString() + "/downloadedfile.jpg";
         // setting downloaded into image view
         //my_image.setImageDrawable(Drawable.createFromPath(imagePath));
     }

@@ -167,7 +167,6 @@ public class CourseParser {
 		Element hole1 = (Element)hole;
 		
 		NodeList teeList = hole1.getElementsByTagName("Tee");
-		String[] result = new String[teeList.getLength()];
 		for(int i = 0; i < teeList.getLength(); i++)
 		{
 			Node t = teeList.item(i);

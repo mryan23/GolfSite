@@ -27,7 +27,8 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
-import android.widget.EditText;
+import android.widget.NumberPicker;
+import android.widget.NumberPicker.OnValueChangeListener;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,8 +43,7 @@ import com.example.golfapp.sql.ShotDatabaseHelper;
 import com.example.golfapp.xml.ClubParser;
 import com.example.golfapp.xml.RoundWriter;
 
-public class RoundActivity extends FragmentActivity
-{
+public class RoundActivity extends FragmentActivity {
 
 	private TextView activityTrackingLabel;
 	private Button trackShotButton;
@@ -61,26 +61,22 @@ public class RoundActivity extends FragmentActivity
 	private CheckBox trackerTeeCheckBox;
 	private int clubIndex = 0;
 	private TextView trackerYardView;
-	private EditText score;
-	private EditText putts;
+	private NumberPicker score;
+	private NumberPicker putts;
 
 	private Context thisContext = this;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState)
-	{
+	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.holes);
 
-		Bundle b=this.getIntent().getExtras();
-		if(b!= null)
-		{
+		Bundle b = this.getIntent().getExtras();
+		if (b != null) {
 			Parcelable parcel = b.getParcelable("Round");
-			if(parcel instanceof Round)
-				round = (Round)parcel;
-		}
-		else
-		{
+			if (parcel instanceof Round)
+				round = (Round) parcel;
+		} else {
 			finish();
 		}
 		TextView holeInfo = (TextView) findViewById(R.id.holeInfoTV);
@@ -90,8 +86,7 @@ public class RoundActivity extends FragmentActivity
 	}
 
 	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data)
-	{
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode != 1)
 			return;
 		if (resultCode == Activity.RESULT_CANCELED)
@@ -100,8 +95,7 @@ public class RoundActivity extends FragmentActivity
 		Bundle b = data.getExtras();
 		Parcelable dummyItem = b.getParcelable("ShortGameShot");
 		ShortGameShot sgs = null;
-		if (dummyItem instanceof ShortGameShot)
-		{
+		if (dummyItem instanceof ShortGameShot) {
 			sgs = (ShortGameShot) dummyItem;
 			Toast.makeText(getApplicationContext(), sgs.toString(),
 					Toast.LENGTH_LONG).show();
@@ -110,35 +104,30 @@ public class RoundActivity extends FragmentActivity
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu)
-	{
+	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.round, menu);
 		return true;
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item)
-	{
-		switch (item.getItemId())
-		{
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
 		case R.id.endRound:
 			endRound();
 			finish();
 			return true;
-		case R.id.myScoreCard:
-		{
+		case R.id.myScoreCard: {
 			Intent i = new Intent(this, ScoreCardActivity.class);
 			i.putExtra("personal", true);
 			i.putExtra("round", round);
 			startActivity(i);
 			return true;
 		}
-		case R.id.groupScoreCard:
-		{
+		case R.id.groupScoreCard: {
 			Intent i = new Intent(this, ScoreCardActivity.class);
-			i.putExtra("personal",false);
-			i.putExtra("round",round);
+			i.putExtra("personal", false);
+			i.putExtra("round", round);
 			startActivity(i);
 			return true;
 		}
@@ -148,79 +137,101 @@ public class RoundActivity extends FragmentActivity
 		}
 	}
 
-	private void endRound()
-	{
+	private void endRound() {
 		RoundWriter writer = new RoundWriter(round, this);
 		new File(getFilesDir(), "rounds").mkdir();
 		writer.write(new File(getFilesDir(), "rounds/" + round.getName()
 				+ ".xml").getAbsolutePath());
 		ShotDatabaseHelper db = new ShotDatabaseHelper(thisContext);
 		db.addRound(round);
-		for (Hole h : round.getHoles())
-		{
+		for (Hole h : round.getHoles()) {
 			db.addHole(h, round);
-			for (Shot s : h.getShots())
-			{
+			for (Shot s : h.getShots()) {
 				if (s instanceof FullShot)
 					db.addFullShot((FullShot) s);
 			}
 		}
 	}
 
-	private void setupHoleListeners()
-	{
+	private void setupHoleListeners() {
 
 		final Hole[] holes = round.getHoles();
 		final Spinner holesSpinner = (Spinner) findViewById(R.id.currentHoleSpinner);
-		Button scorePlus = (Button) findViewById(R.id.scorePlusButton);
-		score = (EditText) findViewById(R.id.scoreEditText);
-		putts = (EditText) findViewById(R.id.puttsEditText);
-		scorePlus.setOnClickListener(new OnClickListener()
-		{
-			@Override
-			public void onClick(View v)
-			{
-				int scoreVal = Integer.parseInt(score.getText().toString());
-				Hole hole = holes[holesSpinner.getSelectedItemPosition()];
-				score.setText((scoreVal + 1) + "");
-				hole.setScore(0, scoreVal + 1);
-			}
+		score = (NumberPicker) findViewById(R.id.scoreNumberPicker);
+		putts = (NumberPicker) findViewById(R.id.puttsNumberPicker);
+		score.setMinValue(0);
+		score.setMaxValue(20);
+		score.setOverScrollMode(NumberPicker.OVER_SCROLL_NEVER);
+		score.setWrapSelectorWheel(false);
+		putts.setMinValue(0);
+		putts.setMaxValue(20);
+		putts.setOverScrollMode(NumberPicker.OVER_SCROLL_NEVER);
+		putts.setWrapSelectorWheel(false);
+		score.setOnValueChangedListener(new OnValueChangeListener() {
 
-		});
-		Button scoreMinus = (Button) findViewById(R.id.scoreMinusButton);
-		scoreMinus.setOnClickListener(new OnClickListener()
-		{
 			@Override
-			public void onClick(View v)
-			{
-				int scoreVal = Integer.parseInt(score.getText().toString());
-				int puttsVal = Integer.parseInt(putts.getText().toString());
+			public void onValueChange(NumberPicker picker, int oldVal,
+					int newVal) {
 				Hole hole = holes[holesSpinner.getSelectedItemPosition()];
-				if (scoreVal > 0 && scoreVal > puttsVal)
-				{
-					score.setText((scoreVal - 1) + "");
-					hole.setScore(0, scoreVal - 1);
-				} else if (scoreVal > 0 && scoreVal == puttsVal)
-				{
-					score.setText((scoreVal - 1) + "");
-					hole.setScore(0, scoreVal - 1);
-					putts.setText((puttsVal - 1) + "");
-					hole.setPutts(puttsVal - 1);
+				if (newVal > oldVal || putts.getValue() < newVal)
+					hole.setScore(0, newVal);
+				else {
+					hole.setScore(0, newVal);
+					// hole.setPutts(newVal);
+					putts.setValue(newVal);
+					hole.setPutts(newVal);
 				}
+
 			}
 
 		});
+		putts.setOnValueChangedListener(new OnValueChangeListener() {
+
+			@Override
+			public void onValueChange(NumberPicker arg0, int oldVal, int newVal) {
+				Hole hole = holes[holesSpinner.getSelectedItemPosition()];
+				hole.setPutts(newVal);
+				if (newVal > oldVal || oldVal != score.getValue()) {
+					score.setValue(score.getValue() + newVal - oldVal);
+					hole.setScore(0, score.getValue());
+				} else {
+					score.setValue(newVal);
+					hole.setScore(0,newVal);
+				}
+
+			}
+
+		});
+		/*
+		 * scorePlus.setOnClickListener(new OnClickListener() {
+		 * 
+		 * @Override public void onClick(View v) { int scoreVal =
+		 * Integer.parseInt(score.getText().toString()); Hole hole =
+		 * holes[holesSpinner.getSelectedItemPosition()];
+		 * score.setText((scoreVal + 1) + ""); hole.setScore(0, scoreVal + 1); }
+		 * 
+		 * }); scoreMinus.setOnClickListener(new OnClickListener() {
+		 * 
+		 * @Override public void onClick(View v) { int scoreVal =
+		 * Integer.parseInt(score.getText().toString()); int puttsVal =
+		 * Integer.parseInt(putts.getText().toString()); Hole hole =
+		 * holes[holesSpinner.getSelectedItemPosition()]; if (scoreVal > 0 &&
+		 * scoreVal > puttsVal) { score.setText((scoreVal - 1) + "");
+		 * hole.setScore(0, scoreVal - 1); } else if (scoreVal > 0 && scoreVal
+		 * == puttsVal) { score.setText((scoreVal - 1) + ""); hole.setScore(0,
+		 * scoreVal - 1); putts.setText((puttsVal - 1) + "");
+		 * hole.setPutts(puttsVal - 1); } }
+		 * 
+		 * });
+		 */
 
 		Button gpsButton = (Button) findViewById(R.id.gpsButton);
-		gpsButton.setOnClickListener(new OnClickListener()
-		{
+		gpsButton.setOnClickListener(new OnClickListener() {
 
 			@Override
-			public void onClick(View arg0)
-			{
+			public void onClick(View arg0) {
 				Intent i = new Intent(getApplicationContext(),
 						GPSActivity.class);
-				Bundle b = new Bundle();
 				// put parameters in b
 				Hole curHole = round.getHoles()[holeIndex];
 				i.putExtra("GPS Points", curHole.getPoints());
@@ -230,51 +241,38 @@ public class RoundActivity extends FragmentActivity
 
 		});
 
-		Button puttPlus = (Button) findViewById(R.id.puttsPlusButton);
-
-		puttPlus.setOnClickListener(new OnClickListener()
-		{
-			@Override
-			public void onClick(View v)
-			{
-				Hole hole = holes[holesSpinner.getSelectedItemPosition()];
-				int puttVal = Integer.parseInt(putts.getText().toString());
-				putts.setText((puttVal + 1) + "");
-				hole.setPutts(puttVal + 1);
-				int scoreVal = Integer.parseInt(score.getText().toString());
-				score.setText((scoreVal + 1) + "");
-				hole.setScore(0, scoreVal + 1);
-			}
-
-		});
-		Button puttsMinus = (Button) findViewById(R.id.puttsMinusButton);
-		puttsMinus.setOnClickListener(new OnClickListener()
-		{
-			@Override
-			public void onClick(View v)
-			{
-				int puttsVal = Integer.parseInt(putts.getText().toString());
-				int scoreVal = Integer.parseInt(score.getText().toString());
-				Hole hole = holes[holesSpinner.getSelectedItemPosition()];
-				if (puttsVal > 0)
-				{
-					hole.setPutts(puttsVal - 1);
-					putts.setText((puttsVal - 1) + "");
-					hole.setScore(0, scoreVal - 1);
-					score.setText((scoreVal - 1) + "");
-				}
-
-			}
-
-		});
+		/*
+		 * Button puttPlus = (Button) findViewById(R.id.puttsPlusButton);
+		 * 
+		 * puttPlus.setOnClickListener(new OnClickListener() {
+		 * 
+		 * @Override public void onClick(View v) { Hole hole =
+		 * holes[holesSpinner.getSelectedItemPosition()]; int puttVal =
+		 * Integer.parseInt(putts.getText().toString()); putts.setText((puttVal
+		 * + 1) + ""); hole.setPutts(puttVal + 1); int scoreVal =
+		 * Integer.parseInt(score.getText().toString()); score.setText((scoreVal
+		 * + 1) + ""); hole.setScore(0, scoreVal + 1); }
+		 * 
+		 * }); Button puttsMinus = (Button) findViewById(R.id.puttsMinusButton);
+		 * puttsMinus.setOnClickListener(new OnClickListener() {
+		 * 
+		 * @Override public void onClick(View v) { int puttsVal =
+		 * Integer.parseInt(putts.getText().toString()); int scoreVal =
+		 * Integer.parseInt(score.getText().toString()); Hole hole =
+		 * holes[holesSpinner.getSelectedItemPosition()]; if (puttsVal > 0) {
+		 * hole.setPutts(puttsVal - 1); putts.setText((puttsVal - 1) + "");
+		 * hole.setScore(0, scoreVal - 1); score.setText((scoreVal - 1) + ""); }
+		 * 
+		 * }
+		 * 
+		 * });
+		 */
 
 		Button shortGameTracker = (Button) findViewById(R.id.shortGameTrackButton);
-		shortGameTracker.setOnClickListener(new OnClickListener()
-		{
+		shortGameTracker.setOnClickListener(new OnClickListener() {
 
 			@Override
-			public void onClick(View arg0)
-			{
+			public void onClick(View arg0) {
 				Intent i = new Intent(getApplicationContext(),
 						ShortGameTrackerActivity.class);
 				startActivityForResult(i, 1);
@@ -282,22 +280,20 @@ public class RoundActivity extends FragmentActivity
 			}
 
 		});
-		
-		Button prevTeeShot = (Button)findViewById(R.id.previousRoundsButton);
-		prevTeeShot.setOnClickListener(new OnClickListener(){
+
+		Button prevTeeShot = (Button) findViewById(R.id.previousRoundsButton);
+		prevTeeShot.setOnClickListener(new OnClickListener() {
 
 			@Override
-			public void onClick(View arg0)
-			{
+			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 		});
 
 		String[] holeStrings = new String[round.getNumberOfHoles()];
-		for (int i = 0; i < holes.length; i++)
-		{
+		for (int i = 0; i < holes.length; i++) {
 			holeStrings[i] = holes[i].holeString();
 		}
 
@@ -307,21 +303,18 @@ public class RoundActivity extends FragmentActivity
 				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		holesSpinner.setAdapter(spinnerArrayAdapter);
 
-		holesSpinner.setOnItemSelectedListener(new OnItemSelectedListener()
-		{
+		holesSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 
 			@Override
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
-					int arg2, long arg3)
-			{
+					int arg2, long arg3) {
 				int holeIndex = holesSpinner.getSelectedItemPosition();
 				switchHole(holes[holeIndex], holeIndex);
 
 			}
 
 			@Override
-			public void onNothingSelected(AdapterView<?> arg0)
-			{
+			public void onNothingSelected(AdapterView<?> arg0) {
 				// TODO Auto-generated method stub
 
 			}
@@ -332,8 +325,7 @@ public class RoundActivity extends FragmentActivity
 		ClubParser parser = new ClubParser(new File(getFilesDir(), "clubs.xml"));
 		clubs = parser.getClubs();
 		ArrayList<String> strings = new ArrayList<String>();
-		for (int i = 0; i < clubs.length; i++)
-		{
+		for (int i = 0; i < clubs.length; i++) {
 			if (clubs[i].isEnabled())
 				strings.add(clubs[i].getName());
 		}
@@ -347,12 +339,10 @@ public class RoundActivity extends FragmentActivity
 		clubSpinner.setAdapter(spinnerArrayAdapter2);
 
 		CheckBox fairway = (CheckBox) findViewById(R.id.fairwayCheckBox);
-		fairway.setOnCheckedChangeListener(new OnCheckedChangeListener()
-		{
+		fairway.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
 			@Override
-			public void onCheckedChanged(CompoundButton arg0, boolean arg1)
-			{
+			public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
 				Hole hole = holes[holesSpinner.getSelectedItemPosition()];
 				hole.setFairway(arg1);
 
@@ -361,13 +351,11 @@ public class RoundActivity extends FragmentActivity
 		});
 
 		CheckBox green = (CheckBox) findViewById(R.id.greenCheckBox);
-		green.setOnCheckedChangeListener(new OnCheckedChangeListener()
-		{
+		green.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView,
-					boolean isChecked)
-			{
+					boolean isChecked) {
 				Hole hole = holes[holesSpinner.getSelectedItemPosition()];
 				hole.setGreen(isChecked);
 
@@ -376,12 +364,10 @@ public class RoundActivity extends FragmentActivity
 		});
 
 		Button nextButton = (Button) findViewById(R.id.nextHoleButton);
-		nextButton.setOnClickListener(new OnClickListener()
-		{
+		nextButton.setOnClickListener(new OnClickListener() {
 
 			@Override
-			public void onClick(View v)
-			{
+			public void onClick(View v) {
 				int holeIndex = holesSpinner.getSelectedItemPosition();
 				if (holeIndex < round.getNumberOfHoles() - 1)
 					holesSpinner.setSelection(holeIndex + 1);
@@ -391,12 +377,10 @@ public class RoundActivity extends FragmentActivity
 		});
 
 		Button prevButton = (Button) findViewById(R.id.prevHoleButton);
-		prevButton.setOnClickListener(new OnClickListener()
-		{
+		prevButton.setOnClickListener(new OnClickListener() {
 
 			@Override
-			public void onClick(View v)
-			{
+			public void onClick(View v) {
 				int holeIndex = holesSpinner.getSelectedItemPosition();
 				if (holeIndex > 0)
 					holesSpinner.setSelection(holeIndex - 1);
@@ -406,25 +390,20 @@ public class RoundActivity extends FragmentActivity
 		});
 
 		trackShotButton = (Button) findViewById(R.id.trackButton);
-		trackShotButton.setOnClickListener(new OnClickListener()
-		{
+		trackShotButton.setOnClickListener(new OnClickListener() {
 
 			@Override
-			public void onClick(View v)
-			{
+			public void onClick(View v) {
 				AlertDialog dialog = new AlertDialog.Builder(RoundActivity.this)
 						.create();
 				dialog.setTitle("Track Shot");
-				if (shotStartLocation != null)
-				{
+				if (shotStartLocation != null) {
 					dialog.setButton(DialogInterface.BUTTON_POSITIVE, "Save",
-							new DialogInterface.OnClickListener()
-							{
+							new DialogInterface.OnClickListener() {
 
 								@Override
 								public void onClick(DialogInterface dialog,
-										int which)
-								{
+										int which) {
 									// Do Save stuff here
 									int distance = GPSActivity.getDistance(shotStartLocation
 											.distanceTo(myCurrentLocation));
@@ -463,12 +442,15 @@ public class RoundActivity extends FragmentActivity
 											shot.toString(), Toast.LENGTH_LONG)
 											.show();
 
-									int scoreVal = Integer.parseInt(score
-											.getText().toString());
-									Hole hole = holes[holesSpinner
-											.getSelectedItemPosition()];
-									score.setText((scoreVal + 1) + "");
-									hole.setScore(0, scoreVal + 1);
+									/*
+									 * int scoreVal = Integer.parseInt(score
+									 * .getText().toString()); Hole hole =
+									 * holes[holesSpinner
+									 * .getSelectedItemPosition()];
+									 * score.setText((scoreVal + 1) + "");
+									 * hole.setScore(0, scoreVal + 1);
+									 */
+									score.setValue(score.getValue() + 1);
 									if (isTee)
 										clubSpinner.setSelection(clubIndex);
 									trackShotButton.setText("Track Shot");
@@ -477,13 +459,11 @@ public class RoundActivity extends FragmentActivity
 							});
 				}
 				dialog.setButton(DialogInterface.BUTTON_NEUTRAL, "Hide",
-						new DialogInterface.OnClickListener()
-						{
+						new DialogInterface.OnClickListener() {
 
 							@Override
 							public void onClick(DialogInterface dialog,
-									int which)
-							{
+									int which) {
 								// Do hide stuff here
 								clubIndex = trackerClubSpinner
 										.getSelectedItemPosition();
@@ -505,13 +485,11 @@ public class RoundActivity extends FragmentActivity
 
 						});
 				dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel",
-						new DialogInterface.OnClickListener()
-						{
+						new DialogInterface.OnClickListener() {
 
 							@Override
 							public void onClick(DialogInterface dialog,
-									int which)
-							{
+									int which) {
 								// Do Cancel stuff here
 								shotStartLocation = null;
 								currentFullShot = null;
@@ -536,13 +514,11 @@ public class RoundActivity extends FragmentActivity
 						.findViewById(R.id.trackerDistanceTextView);
 
 				trackerTeeCheckBox
-						.setOnCheckedChangeListener(new OnCheckedChangeListener()
-						{
+						.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
 							@Override
 							public void onCheckedChanged(CompoundButton arg0,
-									boolean arg1)
-							{
+									boolean arg1) {
 								if (arg1)
 									trackerSurfaceSpinner.setSelection(1);
 
@@ -550,8 +526,7 @@ public class RoundActivity extends FragmentActivity
 
 						});
 				ArrayList<String> strings = new ArrayList<String>();
-				for (int i = 0; i < clubs.length; i++)
-				{
+				for (int i = 0; i < clubs.length; i++) {
 					if (clubs[i].isEnabled())
 						strings.add(clubs[i].getName());
 				}
@@ -564,8 +539,7 @@ public class RoundActivity extends FragmentActivity
 				clubsSpinner.setAdapter(spinnerArrayAdapter2);
 				trackerClubSpinner = clubsSpinner;
 
-				if (currentFullShot != null)
-				{
+				if (currentFullShot != null) {
 					trackerDirectionSpinner.setSelection(currentFullShot
 							.getDirection());
 					trackerShapeSpinner.setSelection(currentFullShot.getShape());
@@ -574,8 +548,7 @@ public class RoundActivity extends FragmentActivity
 					trackerSurfaceSpinner.setSelection(currentFullShot
 							.getSurface());
 				}
-				if (shotStartLocation != null && myCurrentLocation != null)
-				{
+				if (shotStartLocation != null && myCurrentLocation != null) {
 					double x = shotStartLocation.distanceTo(myCurrentLocation);
 					trackerYardView.setText(GPSActivity.getDistanceString(x));
 				}
@@ -586,53 +559,44 @@ public class RoundActivity extends FragmentActivity
 
 	}
 
-	private void updateTrackingLabels()
-	{
+	private void updateTrackingLabels() {
 		double x = shotStartLocation.distanceTo(myCurrentLocation);
 		activityTrackingLabel.setText(GPSActivity.getDistanceString(x));
-		if (trackerYardView != null)
-		{
+		if (trackerYardView != null) {
 			trackerYardView.setText(GPSActivity.getDistanceString(x));
 		}
 	}
 
-	private void clearTrackingLabels()
-	{
+	private void clearTrackingLabels() {
 		activityTrackingLabel.setText("");
 	}
 
-	void getCurrentLocation()
-	{
+	void getCurrentLocation() {
 		LocationManager mlocManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 		LocationListener mlocListener = new MyLocationListener(this);
 		List<String> providers = mlocManager.getProviders(true);
 		Location l = null;
-		for (int i = providers.size() - 1; i >= 0; i--)
-		{
+		for (int i = providers.size() - 1; i >= 0; i--) {
 			l = mlocManager.getLastKnownLocation(providers.get(i));
 			if (l != null)
 				break;
 		}
-		if (l != null)
-		{
+		if (l != null) {
 		}
 
 		mlocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000,
 				1, mlocListener);
 	}
 
-	public class MyLocationListener implements LocationListener
-	{
+	public class MyLocationListener implements LocationListener {
 		RoundActivity activity;
 
-		public MyLocationListener(RoundActivity act)
-		{
+		public MyLocationListener(RoundActivity act) {
 			activity = act;
 		}
 
 		@Override
-		public void onLocationChanged(Location loc)
-		{
+		public void onLocationChanged(Location loc) {
 			if (activity.shotStartLocation == null)
 				activity.shotStartLocation = loc;
 			activity.myCurrentLocation = loc;
@@ -643,30 +607,25 @@ public class RoundActivity extends FragmentActivity
 		}
 
 		@Override
-		public void onProviderDisabled(String provider)
-		{
+		public void onProviderDisabled(String provider) {
 			Toast.makeText(getApplicationContext(), "Gps Disabled",
 					Toast.LENGTH_SHORT).show();
 		}
 
 		@Override
-		public void onProviderEnabled(String provider)
-		{
+		public void onProviderEnabled(String provider) {
 			Toast.makeText(getApplicationContext(), "Gps Enabled",
 					Toast.LENGTH_SHORT).show();
 		}
 
 		@Override
-		public void onStatusChanged(String provider, int status, Bundle extras)
-		{
+		public void onStatusChanged(String provider, int status, Bundle extras) {
 
 		}
 	}
 
-	private void switchHole(Hole hole, int holeIndex)
-	{
-		if (round.getNumberOfPlayers() > 1 && !firstTime)
-		{
+	private void switchHole(Hole hole, int holeIndex) {
+		if (round.getNumberOfPlayers() > 1 && !firstTime) {
 			ScoreDialog sd = new ScoreDialog();
 			sd.setHoleIndex(this.holeIndex);
 			sd.setNumPlayers(round.getNumberOfPlayers() - 1);
@@ -674,20 +633,24 @@ public class RoundActivity extends FragmentActivity
 			sd.show(getSupportFragmentManager(), "Dialog");
 		}
 		Hole prevHole = round.getHoles()[this.holeIndex];
-		for(Shot s:prevHole.getShots())
-		{
-			if(s instanceof ShortGameShot)
-			{
-				ShortGameShot sgs = (ShortGameShot)s;
+		for (Shot s : prevHole.getShots()) {
+			if (s instanceof ShortGameShot) {
+				ShortGameShot sgs = (ShortGameShot) s;
 				sgs.setPuttsAfter(prevHole.getPutts());
 			}
 		}
 		firstTime = false;
 		this.holeIndex = holeIndex;
-		EditText score = (EditText) findViewById(R.id.scoreEditText);
-		score.setText(hole.getScore(0) + "");
-		EditText putts = (EditText) findViewById(R.id.puttsEditText);
-		putts.setText(hole.getPutts() + "");
+		/*
+		 * EditText score = (EditText) findViewById(R.id.scoreEditText);
+		 * score.setText(hole.getScore(0) + ""); EditText putts = (EditText)
+		 * findViewById(R.id.puttsEditText); putts.setText(hole.getPutts() +
+		 * "");
+		 */
+		NumberPicker score = (NumberPicker) findViewById(R.id.scoreNumberPicker);
+		score.setValue(hole.getScore(0));
+		NumberPicker putts = (NumberPicker) findViewById(R.id.puttsNumberPicker);
+		putts.setValue(hole.getPutts());
 		CheckBox fairway = (CheckBox) findViewById(R.id.fairwayCheckBox);
 		fairway.setChecked(hole.hitFairway());
 		CheckBox green = (CheckBox) findViewById(R.id.greenCheckBox);
@@ -695,11 +658,9 @@ public class RoundActivity extends FragmentActivity
 		TextView holeInfo = (TextView) findViewById(R.id.holeInfoTV);
 		holeInfo.setText(hole.toString());
 
-		if (hole.getPar() == 3)
-		{
+		if (hole.getPar() == 3) {
 			fairway.setVisibility(View.GONE);
-		} else
-		{
+		} else {
 			fairway.setVisibility(View.VISIBLE);
 		}
 		// Spinner holesSpinner =

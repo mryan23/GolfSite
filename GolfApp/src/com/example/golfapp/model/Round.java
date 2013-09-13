@@ -8,7 +8,6 @@ import java.util.Date;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.text.format.DateFormat;
 
 import com.example.golfapp.xml.CourseParser;
 

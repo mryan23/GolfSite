@@ -1,9 +1,6 @@
 package com.example.golfapp.xml;
 
-import java.io.File;
 import java.io.FileOutputStream;
-import java.io.OutputStream;
-import java.io.StringWriter;
 
 import org.xmlpull.v1.XmlSerializer;
 
@@ -16,17 +13,14 @@ import com.example.golfapp.model.Round;
 public class RoundWriter {
 	
 	private Round round;
-	private Context context;
 	public RoundWriter(Round r, Context con)
 	{
 		round = r;
-		context = con;
 	}
 	
 	public void write(String dest)
 	{
 		XmlSerializer serializer = Xml.newSerializer();
-		StringWriter writer = new StringWriter();
 		try{
 			//serializer.setOutput(writer);
 			//serializer.startDocument("UTF-8", true);

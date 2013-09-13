@@ -4,13 +4,11 @@ import java.io.File;
 import java.util.Calendar;
 import java.util.Date;
 
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.view.Menu;
@@ -23,10 +21,8 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.golfapp.model.Round;
-import com.example.golfapp.model.ShortGameShot;
 import com.example.golfapp.xml.CourseParser;
 
 public class MakeRoundActivity extends FragmentActivity
