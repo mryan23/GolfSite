@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/RelativeLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <Button
+            android:id="@+id/prevHoleButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:text="@string/prevHole" />
+
+        <Button
+            android:id="@+id/nextHoleButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:text="@string/next" />
+
+        <Spinner
+            android:id="@+id/currentHoleSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/prevHoleButton"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/nextHoleButton"
+            android:layout_toRightOf="@+id/prevHoleButton" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/holeInfoTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Hole Info Here" />
+
+    <RelativeLayout
+        android:id="@+id/RelativeLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.99"
+        android:orientation="horizontal" >
+
+        <RelativeLayout
+            android:id="@+id/RelativeLayoutLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="1" >
+
+            <TextView
+                android:id="@+id/teeShotLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="21dp"
+                android:text="Tee Club"
+                android:textSize="24sp" />
+
+            <Spinner
+                android:id="@+id/clubSpinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/teeShotLabel"
+                android:layout_marginTop="5dp"
+                android:prompt="@string/selectClub" />
+            
+             <TextView
+                 android:id="@+id/trackShotTextView"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_alignParentLeft="true"
+                 android:layout_below="@+id/clubSpinner"
+                 android:layout_marginLeft="19dp"
+                 android:layout_marginTop="14dp" />
+
+            <Button
+                android:id="@+id/trackButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/trackShotTextView"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="14dp"
+                android:text="Track Shot" />
+
+            <Button
+                android:id="@+id/shortGameTrackButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/trackButton"
+                android:layout_below="@+id/trackButton"
+                android:layout_marginTop="22dp"
+                android:text="Track Short Game" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/RelativeLayoutRight"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1" >
+
+            <EditText
+                android:id="@+id/scoreEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/scorePlusButton"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/scorePlusButton"
+                android:inputType="number"
+                android:text="0" >
+
+            </EditText>
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/scoreMinusButton"
+                android:text="Putts"
+                android:textSize="24sp" />
+
+            <Button
+                android:id="@+id/scorePlusButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/greenFrontTextView"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/greenFrontTextView"
+                android:text="+"
+                android:textSize="24sp" />
+
+            <Button
+                android:id="@+id/scoreMinusButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/scoreEditText"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/scoreEditText"
+                android:text="-"
+                android:textSize="24sp" />
+
+            <Button
+                android:id="@+id/puttsPlusButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/textView3"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/textView3"
+                android:text="+"
+                android:textSize="24sp" />
+
+            <EditText
+                android:id="@+id/puttsEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/puttsPlusButton"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/puttsPlusButton"
+                android:ems="10"
+                android:inputType="number"
+                android:text="0" />
+
+            <Button
+                android:id="@+id/puttsMinusButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/puttsEditText"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/puttsEditText"
+                android:text="-"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/greenFrontTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:text="Score"
+                android:textSize="24sp" />
+
+            <CheckBox
+                android:id="@+id/fairwayCheckBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/greenCheckBox"
+                android:layout_alignBottom="@+id/greenCheckBox"
+                android:layout_marginRight="5dp"
+                android:layout_toLeftOf="@+id/greenCheckBox"
+                android:text="Fairway" />
+
+            <CheckBox
+                android:id="@+id/greenCheckBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/puttsMinusButton"
+                android:text="Green" />
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <Button
+            android:id="@+id/previousRoundsButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:text="@string/prevRounds" />
+
+        <Button
+            android:id="@+id/gpsButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:text="GPS Map" />
+    </RelativeLayout>
+
+</LinearLayout>

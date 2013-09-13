@@ -1,0 +1,99 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/gps"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+	<fragment 
+          android:id="@+id/map"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:name="com.google.android.gms.maps.MapFragment"/>
+
+	<TextView
+	    android:id="@+id/gpsTargetTextView"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentBottom="true"
+	    android:layout_centerHorizontal="true"
+	    android:background="@color/white"
+	    android:text="TextView"
+	    android:textColor="@color/Black"
+	    android:textSize="18sp" />
+
+	<Button
+	    android:id="@+id/gpsGreenViewButton"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentLeft="true"
+	    android:layout_alignParentTop="true"
+	    android:text="Green"
+	    android:textSize="18sp" />
+
+	<Button
+	    android:id="@+id/gpsGolferViewButton"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentRight="true"
+	    android:layout_alignParentTop="true"
+	    android:text="Approach"
+	    android:textSize="18sp" />
+
+	<Button
+	    android:id="@+id/gpsFullHoleView"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentTop="true"
+	    android:layout_centerHorizontal="true"
+	    android:text="Hole"
+	    android:textSize="18sp" />
+
+	<TextView
+	    android:id="@+id/greenTextView"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentLeft="true"
+	    android:layout_centerVertical="true"
+	    android:layout_marginLeft="5dp"
+	    android:background="@color/Black_partial_transparent"
+	    android:text="TextView"
+	    android:textColor="@color/white"
+	    android:textSize="18sp" />
+
+	<TextView
+	    android:id="@+id/greenFrontTextView"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentLeft="true"
+	    android:layout_below="@+id/greenTextView"
+	    android:layout_marginLeft="5dp"
+	    android:background="@color/Black_partial_transparent"
+	    android:text="TextView"
+	    android:textColor="@color/Red"
+	    android:textSize="18sp" />
+
+	<TextView
+	    android:id="@+id/greenBackTextView"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_above="@+id/greenTextView"
+	    android:layout_alignParentLeft="true"
+	    android:layout_marginLeft="5dp"
+	    android:background="@color/Black_partial_transparent"
+	    android:text="TextView"
+	    android:textColor="@color/Blue"
+	    android:textSize="18sp" />
+
+	<TextView
+	    android:id="@+id/obstacleTextView"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentRight="true"
+	    android:layout_centerVertical="true"
+	    android:layout_gravity="right"
+	    android:layout_marginRight="5dp"
+	    android:background="@color/Black_partial_transparent"
+	    android:gravity="right"
+	    android:text="TextView"
+	    android:textSize="18sp" />
+
+</RelativeLayout>

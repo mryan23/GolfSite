@@ -1,0 +1,12 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/action_settings"/>
+    <item android:id="@+id/endRound" android:title="@string/endRound"></item>
+    <item android:id="@+id/myScoreCard" android:title="My Score Card"></item>
+    <item android:id="@+id/groupScoreCard" android:title="Group Score Card"></item>
+
+</menu>

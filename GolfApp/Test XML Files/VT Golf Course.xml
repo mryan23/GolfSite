@@ -1,0 +1,157 @@
+<Course name="Virginia Tech Golf Course"
+		location="Blacksburg, VA"
+		zip="24061"
+		phone="5402316435"
+		holes="9"
+		>
+		
+	<Hole number="1" menHandicap="9" womenHandicap="9" menPar="4" womenPar="4">
+		<Tee name="Blue" gender="men">372</Tee>
+		<Tee name="White" gender="men">338</Tee>
+		<Tee name="Red" gender="women">324</Tee>
+		<GPS>
+			<TeeBox lat="37.226518" lon="-80.430409"/>
+			<Green>
+				<front lat="37.223983" lon="-80.431553"/>
+				<center lat="37.223847" lon="-80.431619"/>
+				<back lat="37.223715" lon="-80.431681"/>
+			</Green>
+			<Bunker name="Left Bunker">
+				<start lat="37.224618" lon="-80.430790"/>
+				<end lat="37.224513" lon="-80.430876"/>
+			</Bunker>
+		</GPS>
+	</Hole>
+	
+	<Hole number="2" menHandicap="7" womenHandicap="7" menPar="4" womenPar="4">
+		<Tee name="Blue" gender="men">370</Tee>
+		<Tee name="White" gender="men">353</Tee>
+		<Tee name="Red" gender="women">270</Tee>
+		<GPS>
+			<TeeBox lat="37.22421" lon="-80.432295"/>
+			<Green>
+				<front lat="37.226172" lon="-80.434742"/>
+				<center lat="37.226272" lon="-80.434785"/>
+				<back lat="37.226364" lon="-80.434839"/>
+			</Green>
+			<Bunker name="">
+				<start lat="37.225222" lon="-80.433797"/>
+				<end lat="37.225354" lon="-80.433931"/>
+			</Bunker>
+		</GPS>
+	</Hole>
+	
+	<Hole number="3" menHandicap="15" womenHandicap="15" menPar="3" womenPar="3">
+		<Tee name="Blue" gender="men">188</Tee>
+		<Tee name="White" gender="men">155</Tee>
+		<Tee name="Red" gender="women">136</Tee>
+		<GPS>
+			<TeeBox lat="37.226810" lon="-80.435428"/>
+			<Green>
+				<front lat="37.225494" lon="-80.434891"/>
+				<center lat="37.225341" lon="-80.434877"/>
+				<back lat="37.225204" lon="-80.434844"/>
+			</Green>
+			<Water>
+				<start lat="37.225899" lon="-80.435055"/>
+				<end lat="37.225568" lon="-80.434948"/>
+			</Water>
+		</GPS>
+	</Hole>
+	
+	<Hole number="4" menHandicap="1" womenHandicap="1" menPar="5" womenPar="5">
+		<Tee name="Blue" gender="men">528</Tee>
+		<Tee name="White" gender="men">515</Tee>
+		<Tee name="Red" gender="women">435</Tee>
+		<GPS>
+			<TeeBox lat="37.225433" lon="-80.435581"/>
+			<Green>
+				<front lat="37.229038" lon="-80.437564"/>
+				<center lat="37.229147" lon="-80.437578"/>
+				<back lat="37.229266" lon="-80.437591"/>
+			</Green>
+			<EOF lat="37.228308" lon="-80.437598"/>
+			<Other name="Road" lat="37.229438" lon="-80.437726"/>
+		</GPS>
+	</Hole>
+	
+	<Hole number="5" menHandicap="5" womenHandicap="5" menPar="4" womenPar="4">
+		<Tee name="Blue" gender="men">351</Tee>
+		<Tee name="White" gender="men">339</Tee>
+		<Tee name="Red" gender="women">311</Tee>
+		<GPS>
+			<TeeBox lat="37.229386" lon="-80.437126"/>
+			<Green>
+				<front lat="37.227345" lon="-80.435378"/>
+				<center lat="37.227359" lon="-80.435249"/>
+				<back lat="37.227356" lon="-80.435109"/>
+			</Green>
+			<Tree lat="37.228167" lon="-80.436621"/>
+		</GPS>
+	</Hole>
+	
+	<Hole number="6" menHandicap="13" womenHandicap="13" menPar="4" womenPar="4">
+		<Tee name="Blue" gender="men">359</Tee>
+		<Tee name="White" gender="men">343</Tee>
+		<Tee name="Red" gender="women">301</Tee>
+		<GPS>
+			<TeeBox lat="37.227037" lon="-80.434742"/>
+			<Green>
+				<front lat="37.225364" lon="-80.432216"/>
+				<center lat="37.225345" lon="-80.431989"/>
+				<back lat="37.225249" lon="-80.431799"/>
+			</Green>
+			<Hazard>
+				<start lat="37.225826" lon="-80.43336"/>
+				<end lat="37.225638" lon="-80.432872"/>
+			</Hazard>
+		</GPS>
+	</Hole>
+	
+	<Hole number="7" menHandicap="3" womenHandicap="3" menPar="4" womenPar="4">
+		<Tee name="Blue" gender="men">422</Tee>
+		<Tee name="White" gender="men">405</Tee>
+		<Tee name="Red" gender="women">342</Tee>
+		<GPS>
+			<TeeBox lat="37.225715" lon="-80.431488"/>
+			<Green>
+				<front lat="37.227549" lon="-80.434669"/>
+				<center lat="37.227665" lon="-80.434813"/>
+				<back lat="37.227794" lon="-80.434942"/>
+			</Green>
+		</GPS>
+	</Hole>
+	
+	<Hole number="8" menHandicap="17" womenHandicap="17" menPar="3" womenPar="3">
+		<Tee name="Blue" gender="men">167</Tee>
+		<Tee name="White" gender="men">156</Tee>
+		<Tee name="Red" gender="women">141</Tee>
+		<GPS>
+			<TeeBox lat="37.227988" lon="-80.435396"/>
+			<Green>
+				<front lat="37.228970" lon="-80.436114"/>
+				<center lat="37.229116" lon="-80.436212"/>
+				<back lat="37.229239" lon="-80.436282"/>
+			</Green>
+			<Other name="OB">
+				<start lat="37.229017" lon="-80.435232"/>
+				<end lat="37.229329" lon="-80.43572"/>
+			</Other>
+		</GPS>
+	</Hole>
+	
+	<Hole number="9" menHandicap="11" womenHandicap="11" menPar="5" womenPar="5">
+		<Tee name="Blue" gender="men">501</Tee>
+		<Tee name="White" gender="men">452</Tee>
+		<Tee name="Red" gender="women">442</Tee>
+		<GPS>
+			<TeeBox lat="37.228682" lon="-80.435216"/>
+			<Green>
+				<front lat="37.226609" lon="-80.431088"/>
+				<center lat="37.226525" lon="-80.430930"/>
+				<back lat="37.226466" lon="-80.430782"/>
+			</Green>
+		</GPS>
+	</Hole>
+
+</Course>
