@@ -123,5 +123,8 @@
     <string name="title_activity_round">RoundActivity</string>
     <string name="title_activity_score_card">ScoreCardActivity</string>
     <string name="title_activity_make_round">MakeRoundActivity</string>
+    <string name="title_activity_short_game_stats">ShortGameStatsActivity</string>
+    <string name="title_activity_bunker_stats">BunkerStatsActivity</string>
+    <string name="title_activity_table">TableActivity</string>
 
 </resources>

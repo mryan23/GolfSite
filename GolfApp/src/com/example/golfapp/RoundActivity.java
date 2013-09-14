@@ -13,8 +13,10 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Parcelable;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -57,7 +59,7 @@ public class RoundActivity extends FragmentActivity {
 	private FullShot currentFullShot;
 
 	private Spinner trackerClubSpinner, trackerDirectionSpinner,
-			trackerSurfaceSpinner, trackerShapeSpinner, clubSpinner;
+			trackerSurfaceSpinner, trackerShapeSpinner;
 	private CheckBox trackerTeeCheckBox;
 	private int clubIndex = 0;
 	private TextView trackerYardView;
@@ -142,6 +144,8 @@ public class RoundActivity extends FragmentActivity {
 		new File(getFilesDir(), "rounds").mkdir();
 		writer.write(new File(getFilesDir(), "rounds/" + round.getName()
 				+ ".xml").getAbsolutePath());
+		writer.write(new File(Environment.getExternalStorageDirectory(),round.getName()+".xml").getAbsolutePath());
+		Log.d("FILE NAME",new File(Environment.getExternalStorageDirectory(),round.getName()+".xml").getAbsolutePath());
 		ShotDatabaseHelper db = new ShotDatabaseHelper(thisContext);
 		db.addRound(round);
 		for (Hole h : round.getHoles()) {
@@ -149,6 +153,11 @@ public class RoundActivity extends FragmentActivity {
 			for (Shot s : h.getShots()) {
 				if (s instanceof FullShot)
 					db.addFullShot((FullShot) s);
+				else if(s instanceof ShortGameShot){
+					ShortGameShot sgs = (ShortGameShot)s;
+					sgs.setPuttsAfter(h.getPutts());
+					db.addShortGameShot((ShortGameShot)s);
+				}
 			}
 		}
 	}
@@ -198,7 +207,6 @@ public class RoundActivity extends FragmentActivity {
 					score.setValue(newVal);
 					hole.setScore(0,newVal);
 				}
-
 			}
 
 		});
@@ -321,7 +329,7 @@ public class RoundActivity extends FragmentActivity {
 
 		});
 
-		clubSpinner = (Spinner) findViewById(R.id.clubSpinner);
+		//clubSpinner = (Spinner) findViewById(R.id.clubSpinner);
 		ClubParser parser = new ClubParser(new File(getFilesDir(), "clubs.xml"));
 		clubs = parser.getClubs();
 		ArrayList<String> strings = new ArrayList<String>();
@@ -336,7 +344,6 @@ public class RoundActivity extends FragmentActivity {
 				this, android.R.layout.simple_spinner_item, clubNames);
 		spinnerArrayAdapter2
 				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		clubSpinner.setAdapter(spinnerArrayAdapter2);
 
 		CheckBox fairway = (CheckBox) findViewById(R.id.fairwayCheckBox);
 		fairway.setOnCheckedChangeListener(new OnCheckedChangeListener() {
@@ -451,8 +458,6 @@ public class RoundActivity extends FragmentActivity {
 									 * hole.setScore(0, scoreVal + 1);
 									 */
 									score.setValue(score.getValue() + 1);
-									if (isTee)
-										clubSpinner.setSelection(clubIndex);
 									trackShotButton.setText("Track Shot");
 
 								}

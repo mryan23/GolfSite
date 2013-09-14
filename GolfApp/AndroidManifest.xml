@@ -102,6 +102,19 @@
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyDFjE_yyM9xftwMi2yDWNvSfpAVGad4K54" />
+
+        <activity
+            android:name="com.example.golfapp.ShortGameStatsActivity"
+            android:label="@string/title_activity_short_game_stats" >
+        </activity>
+        <activity
+            android:name="com.example.golfapp.BunkerStatsActivity"
+            android:label="@string/title_activity_bunker_stats" >
+        </activity>
+        <activity
+            android:name="com.example.golfapp.TableActivity"
+            android:label="@string/title_activity_table" >
+        </activity>
     </application>
 
 </manifest>

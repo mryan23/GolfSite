@@ -66,6 +66,18 @@ public class StatsActivity extends Activity {
 			}
 			
 		});
+		
+		Button shortGameButton = (Button)findViewById(R.id.shortGameStatsButton);
+		shortGameButton.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				Intent i = new Intent(getApplicationContext(), ShortGameStatsActivity.class);
+				startActivity(i);
+				
+			}
+			
+		});
 	}
 	
 	@Override

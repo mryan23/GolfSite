@@ -83,8 +83,9 @@ public class ShortGameTrackerActivity extends Activity {
 				else if(!surfaceSpinner.isEnabled())
 				{
 					surfaceSpinner.setEnabled(true);
-					String[] surfaces ={"--Enter Surface--","Fairway", "Rough", "Sand", "Pine", "Other"};
-					ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(thisActivity, android.R.layout.simple_spinner_item, surfaces);
+					ArrayAdapter<String> spinnerArrayAdapter;
+					String[] surfaces={"--Enter Surface--","Fairway", "Rough", "Sand", "Pine", "Other"};
+					spinnerArrayAdapter= new ArrayAdapter<String>(thisActivity, android.R.layout.simple_spinner_item, surfaces);
 					spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 					surfaceSpinner.setAdapter(spinnerArrayAdapter);
 					if(index==ShortGameShot.BUNKER_SHOT)
@@ -112,6 +113,13 @@ public class ShortGameTrackerActivity extends Activity {
 			@Override
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int index, long arg3) {
+				if(index==3){
+					shotTypeSpinner.setSelection(3);
+				}else{
+					if(shotTypeSpinner.getSelectedItemPosition()==3){
+						shotTypeSpinner.setSelection(2);
+					}
+				}
 				if(index ==0)
 				{
 					if(startDistanceSpinner.isEnabled())

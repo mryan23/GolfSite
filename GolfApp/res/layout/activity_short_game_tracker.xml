@@ -136,7 +136,7 @@
                 android:src="@drawable/target" />
 
             <TextView
-                android:id="@+id/textView1"
+                android:id="@+id/shortGameShotDebugTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
